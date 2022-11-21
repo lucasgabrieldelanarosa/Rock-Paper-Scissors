@@ -4,12 +4,17 @@ const resultDisplay = document.getElementById('resultDisplay')
 const possibleChoices = document.querySelectorAll('button')
 let userChoice
 let computerChoice
+let round = 0
+let playerWins = 0
+let computerWins = 0
+let result
 
 possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
     userChoice = e.target.id
     userChoiceDisplay.innerHTML = userChoice.charAt(0).toUpperCase() + userChoice.substring(1)
     getComputerChoice();
     getResult();
+    game();
 }))
 
 function getComputerChoice(){
@@ -30,18 +35,55 @@ function getComputerChoice(){
 
 function getResult() {
     if(computerChoice === userChoice){
-        resultDisplay.innerHTML = "Draw"
+        result = 'Draw'
+        resultDisplay.innerHTML = result
     }else if(userChoice === 'rock' && computerChoice === 'paper'){
-        resultDisplay.innerHTML = "L"
+        result = 'L'
+        resultDisplay.innerHTML = result
+        computerWins++
     }else if(userChoice === 'rock' && computerChoice === 'scissors'){
-        resultDisplay.innerHTML = "Win"
+        result = 'Win'
+        resultDisplay.innerHTML = result
+        playerWins++
     }else if(userChoice === 'paper' && computerChoice === 'scissors'){
-        resultDisplay.innerHTML = "L"
+        result = 'L'
+        resultDisplay.innerHTML = result
+        computerWins++
     }else if(userChoice === 'paper' && computerChoice === 'rock'){
-        resultDisplay.innerHTML = "Win"
+        result = 'Win'
+        resultDisplay.innerHTML = result
+        playerWins++
     }else if(userChoice === 'scissors' && computerChoice === 'rock'){
-        resultDisplay.innerHTML = "L"
+        result = 'L'
+        resultDisplay.innerHTML = result
+        computerWins++
     }else if(userChoice === 'scissors' && computerChoice === 'paper'){
-        resultDisplay.innerHTML = "Win"
+        result = 'Win'
+        resultDisplay.innerHTML = result
+        playerWins++
+    }
+}
+
+function game(){
+    if(round < 5){
+        round++
+        console.log(round)
+        const newElement = document.createElement('li')
+        const elementText = document.createTextNode(result)
+        newElement.appendChild(elementText)
+        const body = document.querySelector('#ul-historic')
+        body.appendChild(newElement)
+    }
+    if(round === 5){
+        let winner 
+        if(playerWins > computerWins){
+            winner = 'Player.'
+        }else if(computerWins > playerWins){
+            winner = 'Computer.'
+        }else{
+            winner = 'Draw.'
+        }
+        const divWinner = document.getElementById('div-winner')
+        divWinner.innerText = 'The winner is: ' + winner
     }
 }
