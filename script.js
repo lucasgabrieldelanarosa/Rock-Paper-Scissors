@@ -2,6 +2,10 @@ const userChoiceDisplay = document.getElementById('userChoiceDisplay')
 const computerChoiceDisplay = document.getElementById('computerChoiceDisplay')
 const resultDisplay = document.getElementById('resultDisplay')
 const possibleChoices = document.querySelectorAll('button')
+const rockButton = document.querySelector('.btnrock')
+const paperButton = document.querySelector('.btnpaper')
+const scissorsButton = document.querySelector('.btnscissors')
+const button = document.querySelector('.btn')
 let userChoice
 let computerChoice
 let round = 0
@@ -83,7 +87,20 @@ function game(){
         }else{
             winner = 'Draw.'
         }
+        
         const divWinner = document.getElementById('div-winner')
-        divWinner.innerText = 'The winner is: ' + winner
+        switch(winner){
+            case "Player.":
+            case "Computer.":        
+            divWinner.innerText = 'The winner is: ' + winner
+            rockButton.setAttribute('disabled', '');
+            paperButton.setAttribute('disabled', '');
+            scissorsButton.setAttribute('disabled', '');
+                    break;
+            case "Draw.":
+                divWinner.innerText = "Draw. It's your last chance."
+                round = 4;
+                break;
+        }
     }
 }
